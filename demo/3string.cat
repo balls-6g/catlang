@@ -1,0 +1,3 @@
+main = do
+    val string1: String = String "hello, world"
+    val str1: &String = &string1

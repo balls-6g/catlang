@@ -1,0 +1,51 @@
+use std.io.stdin.read_line;
+
+enm Gender(Male, Female) {
+    pur fun is_male(&self): Bool {
+        match self {
+            Male => True,
+            Female => False,
+        }
+    }
+
+    pur fun is_male(&self): Bool {
+        match self {
+            Male => False,
+            Female => True,
+        }
+    }
+}
+
+typ Human(gender { get; set; }: Gender, name: String, age: U8) {
+    pur init;
+
+    io fun intro(&self) { // io来自标准库中定义的monad
+        println("The human name is {}, {}'s {} years old", self.name, if self.gender.is_male() { "he" } else { "she" }, self.age);
+    }
+}
+
+err GenderNotFound(gender: &String) {
+    io error init {
+        eprintln("gender not found: {}", self.gender)
+    }
+}
+
+pur fun to_gender(g: &String): Gender ^ GenderNotFound {
+    if g.lower_case() == "male" || g.lower_case() == "female" {
+        if g.lower_case() == "male" { Gender.Male } else { Gender.Female }
+    } else {
+        ^GenderNotFound(g)
+    }
+}
+
+fun main() {
+    val input_name = read_line("Enter human name: ");
+
+    val input_age = read_line("Enter human age: ");
+    val age = drop(input_age).to_u8() orelse { eprintln("Failed to parse age"); std.process.exit(1); };
+
+    val input_gender = read_line("Enter human gender: ");
+    val gender = drop(gender) |> to_gender().free_err();
+
+    val human = Human(gender, input_name, age);
+}
