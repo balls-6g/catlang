@@ -1,3 +1,7 @@
 mod string_syntaxerror;
 
-enum ParseCodeError {}
+use string_syntaxerror::StringSyntaxError;
+
+enum ParseCodeError {
+    StringSyntaxError(StringSyntaxError),
+}

@@ -1,5 +1,5 @@
 use super::string_syntaxerror;
 
-struct StringSyntaxError {
+pub struct StringSyntaxError {
     column: u32,
 }

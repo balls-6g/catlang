@@ -1,3 +1,5 @@
+use crate::error::parse_code;
+
 fn extract_some(c: Option<u8>) -> u8 {
     match c {
         Some(v) => v,
@@ -40,7 +42,7 @@ pub fn gane_string_pool(code: String, pool: &mut Vec<String>) -> Result<(), ()> 
     }
 
     if !string_started {
-        Err(())
+        return Err(());
     }
 
     Ok(())
