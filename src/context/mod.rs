@@ -53,7 +53,7 @@ impl<E: CompilerError> Context<E> {
     pub fn compiler_panic_error_start(&self, err: E) {
         match err.err_level() {
             ErrorLevel::CompilerPanicError => {
-                println!("{}", err.fmt())
+                println!("{}", err.err_fmt())
             }
             _ => {
                 eprintln!(

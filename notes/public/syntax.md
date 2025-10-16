@@ -21,4 +21,4 @@ and after the `toplevel expression` feature, the simple helloworld became like t
 println "Hello, World"
 ```
 
-... functional programming is crazy, it is the best
+... functional programming is crazy
