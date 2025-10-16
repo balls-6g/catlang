@@ -11,8 +11,7 @@ fun main() {
 but then, after I have learned functional programming (haskell and F#), the syntax started to be like this:
 
 ```haskell
-@monad IO
-main = do
+main =>> IO = do
     println "Hello, World"
 ```
 

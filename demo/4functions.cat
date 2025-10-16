@@ -1,8 +1,0 @@
-use std.io.stdin.read_line;
-
-fun main() {
-    val num1 = read_line("enter the first number: ")
-    match {
-        
-    }
-}

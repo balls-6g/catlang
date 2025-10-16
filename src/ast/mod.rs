@@ -48,7 +48,7 @@ struct FinalExpr {
 
 struct Pos {
     line: usize,
-    column: usize,
+    col: usize,
     file: String,
 }
 

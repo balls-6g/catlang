@@ -1,0 +1,24 @@
+imp cali
+imp catweb
+
+help =>> IO = do
+    println "A simple server app for web devs...."
+    println "Usage: server [+file]"
+
+initServer host: String f: String =>> IO =
+    println "starting server at {}" host
+    var server = catweb.Listen host orelse do
+        eprinln "failed to spawn server on host: {}" host
+        @processExit
+    
+    std.fs.readToString f!! |> server.callBackReturn!! orelse do
+        eprintln "file not found: {}" f
+        @processExit
+
+main =>> IO = do
+    val args = cali.appArgs
+
+    if args.subCommand = "serve" = do 
+        initServer (args.foundParam "host" orelse "localhost:8080") (args.foundParam "file" orelse "index.html")
+    elseif args.subCommand = "--help" = do
+        help
