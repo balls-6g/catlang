@@ -10,6 +10,7 @@ pub struct Context<E: CompilerError> {
     error_pool: Option<Vec<E>>,        // gaining error pool
     warning_pool: Option<String>, // TODO: add `Warning` trait implementation and complete the code
     string_pool: Vec<String>,     // ...
+    char_pool: Vec<char>
 }
 
 impl<E: CompilerError> Context<E> {
@@ -22,6 +23,7 @@ impl<E: CompilerError> Context<E> {
             error_pool: None,
             warning_pool: None,
             string_pool: vec![],
+            char_pool: vec![]
         }
     }
 
@@ -33,14 +35,20 @@ impl<E: CompilerError> Context<E> {
         self.string_pool.push(v);
     }
 
-    // F***......
+    pub fn char_pool_push(&mut self, c: char) {
+        self.char_pool.push(c);
+    }
+
     pub fn borrow_mut_warning_pool(&mut self) -> &mut Option<String> {
         &mut self.warning_pool
     }
 
-    // F again....
     pub fn borrow_mut_string_pool(&mut self) -> &mut Vec<String> {
         &mut self.string_pool
+    }
+
+    pub fn borrow_mut_char_pool(&mut self) -> &mut Vec<char> {
+        &mut self.char_pool
     }
 
     pub fn set_pos(&mut self, proj: String, file: String, line: u32, col: u32) {
@@ -83,5 +91,9 @@ impl<E: CompilerError> Context<E> {
 
     pub fn get_string_pool(&self) -> Vec<String> {
         self.string_pool.clone()
+    }
+
+    pub fn get_char_pool(&self) -> Vec<char> {
+        self.char_pool.clone()
     }
 }
