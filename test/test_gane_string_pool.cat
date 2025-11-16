@@ -1,1 +1,3 @@
-"hello world"
+"hello world --fake comment\"" -- comment
+-- comment 2
+'c' -- a char
