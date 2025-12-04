@@ -1,9 +1,9 @@
 // The main structure representing the entire program
-struct Program<'a> {
-    toplevels: Vec<TopLevel<'a>>,
+pub struct Program {
+    toplevels: Vec<TopLevel>,
 }
 
-enum DefaultTypes {
+pub enum DefaultTypes {
     I8,
     I16,
     I32,
@@ -22,83 +22,78 @@ enum DefaultTypes {
     Unit, // represents the unit type `()`
 }
 
-enum TopLevel<'a> {
-    Mod(Module<'a>),    // Module definition
-    Typ(Type<'a>),      // Type definition
-    Ext(Extension<'a>), // Create an type or enum extension by implements protocal
-    Imp(&'a str),       // Importing modules or types
-    Function(Function<'a>),
+pub enum TopLevel {
+    Mod(Module),    // Module definition
+    Typ(Type),      // Type definition
+    Ext(Extension), // Create an type or enum extension by implements protocal
+    Imp(String),    // Importing modules or types
+    Function(Function),
     Const {
-        name: &'a str,
-        typ: &'a str,
-        value: &'a str,
+        name: String,
+        typ: String,
+        value: String,
     },
-    Static {
-        name: &'a str,
-        typ: &'a str,
-        value: &'a str,
-    },
-    Protocal(Protocal<'a>), // Creates a protocal
-    Enum(Enum<'a>),         // Creates an enum
+    Protocal(Protocal), // Creates a protocal
+    Enum(Enum),         // Creates an enum
 }
 
-struct FinalExpr {
+pub struct FinalExpr {
     line: usize,
 }
 
-struct Pos {
+pub struct Pos {
     line: usize,
     col: usize,
     file: String,
 }
 
-struct Function<'a> {
+pub struct Function {
     name: String,
-    args: Vec<Arg<'a>>,
+    args: Vec<Arg>,
     body: FinalExpr,
     ret_type: Option<String>,
     pos: Pos,
 }
 
-struct Arg<'a> {
-    name: &'a str,
+pub struct Arg {
+    name: String,
     type_: String,              // Type of the argument
     pos: Pos,                   // Position in the source Module
     default: Option<FinalExpr>, // Optional default value for the argument
 }
 
-struct Type<'a> {
+pub struct Type {
     name: String,
-    fields: Vec<(String, Type<'a>)>, // (field_name, field_type)
+    fields: Vec<(String, Type)>, // (field_name, field_type)
     pos: Pos,
-    fields_funtions: Vec<Function<'a>>,
-    functions: Vec<Function<'a>>,
+    fields_funtions: Vec<Function>,
+    functions: Vec<Function>,
 }
 
-struct Enum<'a> {
+pub struct Enum {
     name: String,
-    variants: Vec<(String, Vec<Type<'a>>)>, // (variant_name, variant_types)
+    variants: Vec<(String, Vec<Type>)>, // (variant_name, variant_types)
     pos: Pos,
 }
 
-struct Implementation<'a> {
+pub struct Implementation {
     type_name: String,
-    functions: Vec<Function<'a>>,
+    functions: Vec<Function>,
     pos: Pos,
 }
 
-struct Protocal<'a> {
+pub struct Protocal {
     // similar to traits in Rust
     name: String,
-    functions: Vec<Function<'a>>,
+    functions: Vec<Function>,
     pos: Pos,
 }
 
-struct Module<'a> {
-    name: &'a str,
+pub struct Module {
+    name: String,
 }
 
-struct Extension<'a> {
-    type_name: &'a str,
-    functions: Vec<Function<'a>>,
+pub struct Extension {
+    type_name: String,
+    functions: Vec<Function>,
 }

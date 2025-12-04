@@ -1,13 +1,15 @@
+mod symbol;
+
 use crate::context::Context;
 use crate::error::debug_trait::CompilerError;
-use crate::error::parse_code::char_unusable_error::CharUnusableError;
-use crate::error::parse_code::{self, ParseCodeError};
+use crate::error::lexer::char_unusable_error::CharUnusableError;
+use crate::error::lexer::{self};
 
 // TODO: add char support
 pub fn gane_string_pool<E: CompilerError>(
     code: &str,
     ctx: &mut Context<E>,
-) -> Result<(), parse_code::ParseCodeError> {
+) -> Result<(), lexer::LexerError> {
     let mut string_buf = String::new();
     let mut string_started = false;
     let mut char_started = false;
@@ -31,7 +33,7 @@ pub fn gane_string_pool<E: CompilerError>(
                     if char_started {
                         // if the charbuf isn't None means this isn't the first char already
                         if char_buf != None {
-                            return Err(parse_code::ParseCodeError::CharUnusableError(
+                            return Err(lexer::LexerError::CharUnusableError(
                                 CharUnusableError::new(
                                     ctx.get_current_file(),
                                     line_idx as u32,
@@ -67,7 +69,7 @@ pub fn gane_string_pool<E: CompilerError>(
 
                     if char_started {
                         if char_buf == None {
-                            return Err(parse_code::ParseCodeError::CharUnusableError(
+                            return Err(lexer::LexerError::CharUnusableError(
                                 CharUnusableError::new(
                                     ctx.get_current_file(),
                                     line_idx as u32,
@@ -99,7 +101,7 @@ pub fn gane_string_pool<E: CompilerError>(
                                 continue;
                             } else if char_started {
                                 if char_buf != None {
-                                    return Err(ParseCodeError::CharUnusableError(
+                                    return Err(lexer::LexerError::CharUnusableError(
                                         CharUnusableError::new(
                                             ctx.get_current_file(),
                                             line_idx as u32,
@@ -115,7 +117,7 @@ pub fn gane_string_pool<E: CompilerError>(
                             }
                             if char_started {
                                 if char_buf != None {
-                                    return Err(parse_code::ParseCodeError::CharUnusableError(
+                                    return Err(lexer::LexerError::CharUnusableError(
                                         CharUnusableError::new(
                                             ctx.get_current_file(),
                                             line_idx as u32,
@@ -169,8 +171,8 @@ pub fn gane_string_pool<E: CompilerError>(
     }
 
     if string_started || char_started {
-        return Err(parse_code::ParseCodeError::StringSyntaxError(
-            crate::error::parse_code::string_syntax_error::StringSyntaxError::new(
+        return Err(lexer::LexerError::StringSyntaxError(
+            crate::error::lexer::string_syntax_error::StringSyntaxError::new(
                 ctx.get_current_file(),
                 last_s_line,
                 last_s_col,
@@ -186,7 +188,7 @@ mod test {
     #[test]
     fn test_gane_string_pool() {
         let mut context: crate::context::Context<
-            crate::error::parse_code::string_syntax_error::StringSyntaxError,
+            crate::error::lexer::string_syntax_error::StringSyntaxError,
         > = crate::context::Context::new(
             "cat-test".to_string(),
             "test/test_gane_string_pool.cat".to_string(),

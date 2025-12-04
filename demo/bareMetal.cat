@@ -1,7 +1,0 @@
-imp metal
-
-add x: Isize y: Isize -> Isize = x + y
-
-@monad MetalIO
-main = do
-    add 1 1 |> metal.bios.displayText

@@ -2,8 +2,7 @@ pub mod ast;
 pub mod context;
 pub mod error;
 pub mod ir;
-pub mod parse_code;
-
+pub mod lexer;
 
 /* hell no man */
 pub fn main() {}

@@ -1,6 +1,0 @@
-@monad IO
-main = do
-    var var1 = 0
-    val val1 = 9
-    println "var1 = {}" var1
-    println "val1 = {}" val1

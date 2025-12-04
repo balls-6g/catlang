@@ -1,7 +1,0 @@
-imp std.io.stdin.readLn
-
-main =>> IO = do
-    val input = readLn "Enter a number: "
-
-    input.trim!!.parseI32!! orelse std.panic "An error ocurres" |> println "The square of the number is: {}" $ ** 2
-    -- best language forever!!!

@@ -1,3 +1,0 @@
-@monad IO
-main = do
-    println "Hello World!"
