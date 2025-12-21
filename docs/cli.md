@@ -46,7 +46,6 @@ catc ir app.cat -o app.ctir -l ~/.cat/lib/catui/ -e ~/.cat/lib/ext/nom
 
 ## from cat IR into binary
 
-
 ```bash
 catc irc app.ctir
 ```

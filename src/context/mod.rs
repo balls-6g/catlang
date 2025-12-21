@@ -7,10 +7,10 @@ pub struct Context<E: CompilerError> {
     file: String,                 // Current file path
     line: u32,                    // Current line number
     col: u32,                     // Current line col number
-    error_pool: Option<Vec<E>>,        // gaining error pool
+    error_pool: Option<Vec<E>>,   // gaining error pool
     warning_pool: Option<String>, // TODO: add `Warning` trait implementation and complete the code
     string_pool: Vec<String>,     // ...
-    char_pool: Vec<char>
+    char_pool: Vec<char>,
 }
 
 impl<E: CompilerError> Context<E> {
@@ -23,7 +23,7 @@ impl<E: CompilerError> Context<E> {
             error_pool: None,
             warning_pool: None,
             string_pool: vec![],
-            char_pool: vec![]
+            char_pool: vec![],
         }
     }
 
